@@ -1,0 +1,36 @@
+branches:
+  only:
+    - master
+
+environment:
+  matrix:
+    - nodejs_version: "6"
+      configuration: publish
+    - nodejs_version: "7"
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+
+before_build:
+  - node --version
+  - npm --version
+
+build_script:
+  - npm install
+
+cache:
+  - node_modules -> package.json
+  - '%APPDATA%\npm-cache'
+
+test: off
+
+deploy_script:
+  - ps: |
+      if ($ENV:CONFIGURATION -eq "publish")
+      {
+        "//registry.npmjs.org/:_authToken=`$`{NPM_TOKEN`}" | Out-File ".npmrc" -Encoding UTF8
+        iex "npm pack"
+        iex "npm publish"
+      }
+    on:
+      branch: master

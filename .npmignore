@@ -1,0 +1,7 @@
+/appveyor.yml
+/.gitignore
+/.git
+/.npmignore
+/npm-debug.log
+/*.tgz
+/node_modules
