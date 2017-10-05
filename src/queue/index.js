@@ -7,13 +7,12 @@ const INITIAL_BUFFER_SIZE = 50;
 
 export class Queue
 {
-  constructor({ postCondition })
+  constructor()
   {
     this.getActionHandler = this.getActionHandler.bind(this);
     this.isMatch = this.isMatch.bind(this);
     this.checkAction = this.checkAction.bind(this);
     this.addPattern = this.addPattern.bind(this);
-    this.postCondition = postCondition;
 
     this.patterns = {};
     log('creating Queue');
