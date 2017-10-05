@@ -1,0 +1,1 @@
+export default (...args) => console.log('redux-saga-queue:',...args);

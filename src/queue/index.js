@@ -1,20 +1,22 @@
 import { fork, actionChannel } from 'redux-saga/effects';
 import { buffers } from 'redux-saga';
 import queueWorker from './queue-worker';
+import log from '../log';
 
 const INITIAL_BUFFER_SIZE = 50;
 
-class Queue
+export class Queue
 {
-  constructor()
+  constructor({ postCondition })
   {
     this.getActionHandler = this.getActionHandler.bind(this);
     this.isMatch = this.isMatch.bind(this);
     this.checkAction = this.checkAction.bind(this);
     this.addPattern = this.addPattern.bind(this);
+    this.postCondition = postCondition;
 
     this.patterns = {};
-    this.worker = fork(queueWorker, this);
+    log('creating Queue');
   }
 
   addPattern(actionType, handler, args)
@@ -45,10 +47,10 @@ class Queue
   };
 }
 
-export default function* (buffer = buffers.expanding(INITIAL_BUFFER_SIZE))
-{
-  const queue = new Queue();
-  queue.channel = yield actionChannel(queue.isMatch, );
 
-  return queue;
+export function* startQueue(queue, buffer = buffers.expanding(INITIAL_BUFFER_SIZE))
+{
+  log('calling startQueue');
+  queue.channel = yield actionChannel(queue.isMatch, buffer);
+  queue.worker = yield fork(queueWorker, queue);
 };

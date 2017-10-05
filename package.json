@@ -3,8 +3,11 @@
   "version": "2.0.0",
   "description": "",
   "author": "Gleb Smagliy",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "babel src --out-dir lib"
+  },
   "dependencies": {
     "redux-saga": "~0.15.6"
   },
@@ -13,6 +16,7 @@
     "url": "https://github.com/gleb-smagliy/redux-saga-queue.git"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
