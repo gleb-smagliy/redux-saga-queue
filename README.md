@@ -1,5 +1,5 @@
-![Build status](https://ci.appveyor.com/api/projects/status/github/gleb-smagliy/wrap-module-loader?branch=master)
+## redux-saga-queue
 
-## wrap-module-loader
+Queue to handle redux actions sequentially
 
-This is a webpack loader that helps you to wrap specified module into some code
+TODO: provide more detailed docs
